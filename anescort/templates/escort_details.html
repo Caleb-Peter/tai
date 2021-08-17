@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+   {{escort.name}}
+ {% endblock %}
+{% block content %}
+
+<div class="container" id="right">
+   <div class="card"><br>
+      <div class="card-body">
+         <h1 style="text-decoration:none; font-size:18px; font-weight:normal">Meet {{ escort.name }}, a hot escort from <i class="fas fa-map-marker-alt"></i>{{ escort.area }} in {{ escort.location }}</h1>
+         <div class="card-body">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                  <div class="carousel-item active" data-bs-interval="2000">
+                {% if escort.profile_pic %}
+                    <center><img src="{{escort.profile_pic.url}}" class="d-block w-100" alt="Escort {{escort.name}}"></center>
+                {% else %}
+                    <center><img src="{% static "anescort/images/Kenyaescort.png" %}" class="d-block w-100" alt="Escort {{escort.name}}"></center>
+                {% endif %}
+                  </div>
+
+                {% if escort.Image1 %}
+                  <div class="carousel-item" data-bs-interval="2000">
+                    <center><img src="{{escort.Image1.url}}" class="d-block w-100" alt="Escort {{escort.name}}"></center>
+                  </div>
+                {% endif %}
+
+                {% if escort.Image2 %}
+                  <div class="carousel-item" data-bs-interval="2000">
+                    <center><img src="{{escort.Image2.url}}" class="d-block w-100" alt="Escort {{escort.name}}"></center>
+                  </div>
+                {% endif %}
+
+                {% if escort.Image3 %}
+                  <div class="carousel-item" data-bs-interval="2000">
+                    <center><img src="{{escort.Image3.url}}" class="d-block w-100" alt="Escort {{escort.name}}"></center>
+                  </div>
+                {% endif %}
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+         </div>
+         <div class="d-grid gap-2">
+         
+            <button class="btn btn-danger" type="button" style="padding:0px"><a style="text-decoration:none; color: white" href="tel:{{escort.phone}}"><i class="fas fa-phone-alt" style="color:white"></i><strong>Call {{escort.name}} Now</strong></a></button>
+                                          
+         </div>
+        
+         <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <th scope="row">Age:</th>
+                  <td>{{ escort.age }} years</td>
+                </tr>
+                <tr>
+                  <th scope="row">Phone:</th>
+                  <td>{{ escort.phone }}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Level:</th>
+                  <td>{{ escort.membership }}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Location:</th>
+                  <td>{{escort.location}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Area:</th>
+                  <td>{{escort.area}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Services:</th>
+                  <td>{{escort.services}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Orientation:</th>
+                  <td>{{escort.orientation}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ethnicity:</th>
+                  <td>{{escort.ethnicity}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Skin Color:</th>
+                  <td>{{escort.skin_color}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Hair Color:</th>
+                  <td>{{escort.hair_color}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">About Me:</th>
+                  <td>{{escort.about_me}}</td>
+                </tr>
+              </tbody>
+      </table>
+
+      <div class="d-grid gap-2">
+
+            <button class="btn btn-danger" type="button" style="padding:0px"><a style="text-decoration:none; color: white" href="tel:{{escort.phone}}"><i class="fas fa-phone-alt" style="color:white"></i><strong>Call {{escort.name}} Now</strong></a></button>
+                                          
+      </div>
+
+
+      <br>
+
+         <a href="{% url 'home' %}" class="btn btn-danger"> Back </a><br><br>
+
+            {% if user.is_authenticated %}
+               {% if user.id == escort.author.id %}
+               <a href="{% url 'update-escort' escort.pk %}" class="btn btn-danger">Edit Escort</a>
+               {% endif%}
+            {% endif %}
+      </div>
+   </div>
+</div>      
+
+
+{% endblock%}

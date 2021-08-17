@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	New Escorts
+{% endblock %}
+
+{% block content %}
+
+
+   
+{% if New_list %}
+<div class="container" style="margin-top:-10px">
+	<div class="card">
+		<div class="card-body">
+			<center><h1 class="btn btn-danger" style="font-size:18px; font-weight:normal"><strong>Hook up with New Escorts</strong></h1></center><br>
+			<ul class="list-group list-group-horizontal" style="justify-content: center;">
+				{% for escort in New_list %}
+					<div class="justify-content-center">
+						<li class="list-group-item" style="margin-left:15px; margin-right:15px">
+					{% if escort.profile_pic %}
+							<a href="{% url 'escort-details' escort.pk %}">
+								<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">{{escort.membership}}</span>
+								<img class="img-fluid" src="{{escort.profile_pic.url}}">
+							</a><br>
+					{% else %}
+							<a href="{% url 'escort-details' escort.pk %}">
+								<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">{{escort.membership}}</span>
+								<img class="img-fluid" src="{% static "anescort/images/Kenyaescort.png" %}">
+							</a><br>
+					{% endif %}
+
+							<p style="margin-top: 0px;">Name: <a href="{% url 'escort-details' escort.pk %}" style="text-decoration:none; color: black">{{escort.name}}</a></p>
+
+							<p style="margin-top: -20px; color: darkred">Phone: {{escort.phone}}</p>
+
+							<p style="margin-top: -15px;  width: 200px; overflow:hidden; line-height:20px; color: red; font-size:14px"> Meet {{escort.name}},  a {{escort.age}} years old Escort in <a href="{% url 'location' escort.location|slugify %}" style="text-decoration:none; color: red">{{escort.location}}, {{escort.area}}</a></p>
+														
+							<div class="d-grid gap-2">
+								<button class="btn btn-danger" type="button"><a style="text-decoration:none; color: white" href="tel:{{escort.phone}}"><i class="fas fa-phone-alt" style="color:white"></i><strong>Call {{escort.name}} Now</strong></a></button>						
+							</div>
+						{% if user.is_authenticated %}
+							{% if user.id == escort.author.id %}
+								<a href="{% url 'update-escort' escort.pk %}" class="btn btn-danger" style="padding:5px; margin-top:2px">Edit Escort</a><br>
+								<a href="{% url 'delete-escort' escort.pk %}" class="btn btn-danger" style="padding:5px; margin-top:2px">Remove Escort</a>
+							{% endif%}
+						{% endif %}
+
+						
+						</li><br>
+					</div>
+
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% else %}
+
+<div class="container" style="margin-top:-10px">
+	<div class="card">
+		<div class="card-body">
+			<h3 style="font-size:16px; font-weight:normal">Sorry! Currently there are no escorts in this level. Come back soon as we're dedicted to enlist them.</h3>
+		</div>
+	</div>
+</div>
+
+{% endif %}
+{% endblock%}

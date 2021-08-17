@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+	{% block title %}
+	   Sign in
+	{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="card"><br>
+		<div class="card-body">
+			<div class="container-fluid" style="max-width:80%">
+			<h1 style="font-size:16px; font-weight:normal">Sign in</h1>
+				<form action ='' method="POST">
+					{% csrf_token %}
+					<div class="form-group">
+						<input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" class="form-control" placeholder="Username">
+					</div> <br>
+					<div class="form-group">
+						<input type="password" name="password" autocomplete="current-password" required id="id_password" class="form-control" placeholder="Password"><br>
+						<input type="checkbox" onclick="myFunction()"> Show Password
+					</div><br>
+					<div>
+						<script>
+							function myFunction() {
+	  							var x = document.getElementById("id_password");
+	  							if (x.type === "password") {
+	    							x.type = "text";
+	  							} else {
+	    							x.type = "password";
+	  							}
+							}
+						</script>
+					</div>
+					<button class="btn btn-danger">Sign in</button>
+				</form>
+			</div>
+			<hr>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock%}

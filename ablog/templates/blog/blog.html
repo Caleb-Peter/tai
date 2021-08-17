@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+	{% block title %}
+	   Blog for Kenyan Escorts
+	{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="card"><br>
+		<div class="card-body">
+			<header>
+				<center><h1 id="blogheading">Maisha HOT Blog</h1></center>
+				<center><p>Knowledge Center for Escorts in Kenya and East Africa</p></center><br>
+			</header>
+				<hr><hr>
+			<ul class="list-group list-group-horizontal" style="justify-content: center">
+				{% for post in object_list %}
+						<li>
+							<div class="grid">
+								<div class="g-col-6">
+									<a href="{% url 'post-detail' post.pk %}"><img src="{{post.post_image.url}}" alt="{{post.title}}" class="postimage"></a>
+									<h1 id="blogheading"><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a></h1> 
+									<small> By {{post.author.first_name}} {{post.author.last_name}} ({{post.pub_date}}) </small>	<hr><br>
+										{{post.body|slice:":200"|safe}}
+								</div>
+
+								{% if user.is_authenticated %}
+									{% if user.id == post.author.id %}
+										<a href="{% url 'update_post' post.pk %}" class="btn btn-danger">Edit</a>
+										<a href="{% url 'delete_post' post.pk %}" class="btn btn-danger">Delete</a>
+									{% endif %}
+								{% endif %}
+							</div>
+						</li><br><hr>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+	{% block title %}
+	   {{ post.title }}
+	{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="card"><br>
+		<div class="card-body" id="blocktext">
+				<h1 id="blogheading">{{ post.title }}</h1>
+				<div>
+					<small> By {{post.author.first_name}} {{post.author.last_name}} ({{post.pub_date}}) </small><hr><br>
+					<img src="{{post.post_image.url}}" alt="{{post.title}}" class="postimage1"><br>
+					{{post.body|safe}}
+				</div>
+
+					{% if user.is_authenticated %}
+						{% if user.id == post.author.id %}
+							<a href="{% url 'update_post' post.pk %}" class="btn btn-danger">Edit</a>
+							<a href="{% url 'delete_post' post.pk %}" class="btn btn-danger">Delete</a>
+						{% endif %}
+					{% endif %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

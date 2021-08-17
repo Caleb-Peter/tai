@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+   Edit {{escort.name}}'s profile
+ {% endblock %}
+{% block content %}
+<div class="container">
+   <div class="card"><br>
+      <div class="card-body">
+         <div class="container-fluid" style="max-width:100%">
+            {% if user.is_authenticated %}
+               {% if user.id == escort.author.id %}
+                  <center><h1 style="font-size:18px; font-weight:normal">Edit Escort</h1></center>
+                  <form action ='' method="POST" enctype="multipart/form-data">
+                     {% csrf_token %}
+                     {{ form.as_p }}
+                     <button class="btn btn-danger">Done</button>
+                  </form>
+               {% endif %}
+
+            {% else %}
+
+               <Strong><p>You must be logged in to edit {{escort.name}}'s profile </p></Strong>
+
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+
+
+{% endblock%}

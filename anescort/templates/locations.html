@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load escort_tags %}
+{% load static %}
+
+{% block title %}
+	{{locs}} Escorts
+{% endblock %}
+
+{% block content %}
+   
+<div class="container" style="margin-top:-4px">
+	{% if location_escorts %}
+	<div class="card">
+		<div class="card-body">
+			<h1 style="text-decoration:none; font-size:18px; font-weight:normal"><i class="fas fa-map-marker-alt"></i>{{locs}} Escorts</h1>
+
+			{% regroup location_escorts by membership as membership_list %}
+			<ul style="list-style-type:none; padding:0px; margin:0px">
+				{% for membership in membership_list %}
+
+				<center><h6 class="btn btn-danger">
+					<li><strong>Hook up with HOT {{ membership.grouper }} Escorts</strong>
+
+				</h6></center><br>
+		
+						<ul class="list-group list-group-horizontal" style="justify-content: center">
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{escort.membership}}</span>
+
+							{% for escort in membership.list|shuffle %}
+									<div class="justify-content-start">
+											<li class="list-group-item" style="margin-left:15px; margin-right:15px">
+												<div>
+
+											{% if escort.profile_pic %}
+													<a href="{% url 'escort-details' escort.pk %}">
+														<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">{{escort.membership}}</span>
+														<img class="img-fluid" src="{{escort.profile_pic.url}}" alt="{{escort.name}}, hot escort in Kenya">
+													</a>
+											{% else %}
+													<a href="{% url 'escort-details' escort.pk %}">
+														<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">{{escort.membership}}</span>
+														<img class="img-fluid" src="{% static "anescort/images/Kenyaescort.png" %}" alt="{{escort.name}}, hot escort in Kenya">
+													</a>
+
+											{% endif %}
+												</div>
+												<p style="margin-top: 0px;">Name: <a href="{% url 'escort-details' escort.pk %}" style="text-decoration:none; color: black">{{escort.name}}</a></p>
+
+												<p style="margin-top: -20px; color: darkred">Phone: {{escort.phone}}</p>
+
+												<p style="margin-top: -15px;  width: 200px; overflow:hidden; line-height:20px; color: red; font-size:14px"> Meet {{escort.name}}, a {{escort.age}} years old {{escort.ethnicity}} Escort in <a href="{% url 'location' escort.location|slugify %}" style="text-decoration:none; color: red">{{escort.location}}, {{escort.area}}</a></p>
+													
+												<div class="d-grid gap-2">
+													<button class="btn btn-danger" type="button" style="padding:0px"><a style="text-decoration:none; color: white" href="tel:{{escort.phone}}"><strong><i class="fas fa-phone-alt" style="color:white"></i>Call {{escort.name}} Now</strong></a></button>
+														
+												</div>
+
+												{% if user.is_authenticated %}
+													{% if user.id == escort.author.id %}
+														<a href="{% url 'update-escort' escort.pk %}" class="btn btn-danger" style="padding:5px; margin-top:2px;">Edit Escort</a><br><br>
+														<a href="{% url 'delete-escort' escort.pk %}" class="btn btn-danger" style="padding:5px; margin-top:2px;">Remove Escort</a>
+													{% endif %}
+												{% endif %}
+											</li>
+									</div>
+							{% endfor%}
+						</ul>
+					</li>
+				{% endfor %}
+				</ul>
+				<br>
+				<hr>
+			</div>
+		</div>
+
+{% else %}
+	<div class="card"><br>
+		<div class="card-body">
+
+			<h1 style="text-decoration:none; font-size:18px; font-weight:normal"><i class="fas fa-map-marker-alt"></i>{{locs}} Escorts</h1>
+				<p>Sorry! Currently there are no escorts in {{locs}}. Come back soon as we're dedicted to enlist them.</p> <br>
+
+				<h6>Choose another location</h6>
+			<p>Major Roads in Nairobi | Discover hot escorts near you in Nairobi</p>
+			<div class="list-inline mx-auto justify-content-start" style="display:flex; flex-wrap: wrap">
+					<a href="/location/nairobi-cbd/" class="btn btn-danger btn-sm" id="homelist">Nairobi CBD</a>
+					<a href="/location/eastern-bypass/" class="btn btn-danger btn-sm" id="homelist">Eastern Bypass</a>
+					<a href="/location/jogoo-road/"class="btn btn-danger btn-sm" id="homelist">Jogoo Road</a>
+					<a href="/location/kamiti-road/"class="btn btn-danger btn-sm" id="homelist">Kamiti Road</a>
+					<a href="/location/kangudo-road/"class="btn btn-danger btn-sm" id="homelist">Kangudo Road</a>
+					<a href="/location/langata-road/"class="btn btn-danger btn-sm" id="homelist">Langata Road</a>
+					<a href="/location/manyanja-road/"class="btn btn-danger btn-sm" id="homelist">Manyanja Road</a>
+					<a href="/location/mbagathi-way/"class="btn btn-danger btn-sm" id="homelist">Mbagathi Way</a>
+					<a href="/location/ngong-road/"class="btn btn-danger btn-sm" id="homelist">Ngong Road</a>
+					<a href="/location/mombasa-road/"class="btn btn-danger btn-sm" id="homelist">Mombasa Road</a>
+					<a href="/location/naivasha-road/"class="btn btn-danger btn-sm" id="homelist">Naivasha Road</a>
+					<a href="/location/outering-road/"class="btn btn-danger btn-sm" id="homelist">Outering Road</a>
+					<a href="/location/thika-road/"class="btn btn-danger btn-sm" id="homelist">Thika Road</a>
+					<a href="/location/waiyaki-way/"class="btn btn-danger btn-sm" id="homelist">Waiyaki Way</a>
+			</div> 
+		</div>
+		
+		<div class="card-body">
+			<p>Hot Nairobi Escorts | Hot girls near you</p>
+			<div class="list-inline mx-auto justify-content-start" style="display:flex; flex-wrap: wrap">
+					<a href="/location/nairobi-cbd/"class="btn btn-danger btn-sm" id="homelist">Nairobi CBD</a>
+					<a href="/location/eastern-bypass/"class="btn btn-danger btn-sm" id="homelist">Eastern Bypass</a>
+					<a href="/location/athi-river/"class="btn btn-danger btn-sm" id="homelist">Athi River</a>
+					<a href="/location/allsops/"class="btn btn-danger btn-sm" id="homelist">Allsops</a>
+					<a href="/location/buruburu/"class="btn btn-danger btn-sm" id="homelist">Buruburu</a>
+					<a href="/location/donholm/"class="btn btn-danger btn-sm" id="homelist">Donholm</a>
+					<a href="/location/embakasi/"class="btn btn-danger btn-sm" id="homelist">Embakasi</a>
+					<a href="/location/Eastleigh/"class="btn btn-danger btn-sm" id="homelist">Eastleigh</a>
+					<a href="/location/Githurai/"class="btn btn-danger btn-sm" id="homelist">Githurai</a>
+					<a href="/location/Homeland/"class="btn btn-danger btn-sm" id="homelist">Homeland</a>
+					<a href="/location/Hurlingham/"class="btn btn-danger btn-sm" id="homelist">Hurlingham</a>
+					<a href="/location/imara-daima/" class="btn btn-danger btn-sm" id="homelist">Imara Daima</a>
+					<a href="/location/kasarani/" class="btn btn-danger btn-sm" id="homelist">Kasarani</a>
+					<a href="/location/juja/"class="btn btn-danger btn-sm" id="homelist">Juja</a>
+					<a href="/location/karen/"class="btn btn-danger btn-sm" id="homelist">Karen</a>
+					<a href="/location/kabete/"class="btn btn-danger btn-sm" id="homelist">Kabete</a>
+					<a href="/location/kahawa-wendani/"class="btn btn-danger btn-sm" id="homelist">Kahawa Wendani</a>
+					<a href="/location/kahawa-west/"class="btn btn-danger btn-sm" id="homelist">Kahawa West</a>
+					<a href="/location/kahawa-sukari/"class="btn btn-danger btn-sm" id="homelist">Kahawa Sukari</a>
+					<a href="/location/kayole/"class="btn btn-danger btn-sm" id="homelist">Kayole</a>
+					<a href="/location/kawangware/"class="btn btn-success btn-sm" id="homelist">Kawangware</a>
+					<a href="/location/kileleshwa/"class="btn btn-danger btn-sm" id="homelist">Kileleshwa</a>
+					<a href="/location/kilimani/"class="btn btn-danger btn-sm" id="homelist">Kilimani</a>
+					<a href="/location/kiambu/"class="btn btn-danger btn-sm" id="homelist">Kiambu</a>
+					<a href="/location/kikuyu-town/"class="btn btn-danger btn-sm" id="homelist">Kikuyu Town</a>
+					<a href="/location/kitengela/"class="btn btn-danger btn-sm" id="homelist">Kitengela</a>
+					<a href="/location/langata/"class="btn btn-danger btn-sm" id="homelist">Langata</a>
+					<a href="/location/madaraka/"class="btn btn-danger btn-sm" id="homelist">Madaraka</a>
+					<a href="/location/milimani/"class="btn btn-danger btn-sm" id="homelist">Milimani</a>
+					<a href="/location/mlolongo/"class="btn btn-danger btn-sm" id="homelist">Mlolongo</a>
+					<a href="/location/muthaiga/"class="btn btn-danger btn-sm" id="homelist">Muthaiga</a>
+					<a href="/location/mwiki/"class="btn btn-danger btn-sm" id="homelist">Mwiki</a>
+					<a href="/location/nairobi-west/"class="btn btn-danger btn-sm" id="homelist">Nairobi West</a>
+					<a href="/location/lavington/"class="btn btn-danger btn-sm" id="homelist">Lavington</a>
+					<a href="/location/ngara/"class="btn btn-danger btn-sm" id="homelist">Ngara</a>
+					<a href="/location/pangani/"class="btn btn-danger btn-sm" id="homelist">Pangani</a>
+					<a href="/location/parklands/"class="btn btn-danger btn-sm" id="homelist">Parklands</a>
+					<a href="/location/ruaka/"class="btn btn-danger btn-sm" id="homelist">Ruaka</a>
+					<a href="/location/ruiru/"class="btn btn-danger btn-sm" id="homelist">Ruiru</a>
+					<a href="/location/rongai/"class="btn btn-danger btn-sm" id="homelist">Rongai</a>
+					<a href="/location/roysambu/"class="btn btn-danger btn-sm" id="homelist">Roysambu</a>
+					<a href="/location/ruai/"class="btn btn-danger btn-sm" id="homelist">Ruai</a>
+					<a href="/location/runda/"class="btn btn-danger btn-sm" id="homelist">Runda</a>
+					<a href="/location/south-c/"class="btn btn-danger btn-sm" id="homelist">South C</a>
+					<a href="/location/south-b/"class="btn btn-danger btn-sm" id="homelist">South B</a>
+					<a href="/location/syokimau/"class="btn btn-danger btn-sm" id="homelist">Syokimau</a>
+					<a href="/location/thome/"class="btn btn-danger btn-sm" id="homelist">Thome</a>
+					<a href="/location/umoja/"class="btn btn-danger btn-sm" id="homelist">Umoja</a>
+					<a href="/location/upperhill/"class="btn btn-danger btn-sm" id="homelist">Upper Hill</a>
+					<a href="/location/utawala/"class="btn btn-danger btn-sm" id="homelist">Utawala</a>
+					<a href="/location/westlands/"class="btn btn-danger btn-sm" id="homelist">Westlands</a>
+					<a href="/location/yaya/"class="btn btn-danger btn-sm" id="homelist">Yaya</a>
+
+			</div> 
+		</div>
+
+		<div class="card-body">
+			<p>Explore more | Escorts in other towns in Kenya</p>
+			<div class="list-inline mx-auto justify-content-start" style="display:flex; flex-wrap: wrap">
+					<a href="/location/bungoma/"class="btn btn-danger btn-sm" id="homelist">Bungoma</a>
+					<a href="/location/diani/"class="btn btn-danger btn-sm" id="homelist">Diani</a>
+					<a href="/location/eldoret/"class="btn btn-danger btn-sm" id="homelist">Eldoret</a>
+					<a href="/location/emali/"class="btn btn-danger btn-sm" id="homelist">Emali</a>
+					<a href="/location/embu/"class="btn btn-danger btn-sm" id="homelist">Embu</a>
+					<a href="/location/isiolo/"class="btn btn-danger btn-sm" id="homelist">Isiolo</a>
+					<a href="/location/kericho/"class="btn btn-danger btn-sm" id="homelist">Kericho</a>
+					<a href="/location/kakamega/"class="btn btn-danger btn-sm" id="homelist">Kakamega</a>
+					<a href="/location/karatina/"class="btn btn-danger btn-sm" id="homelist">Karatina</a>
+					<a href="/location/kilifi/"class="btn btn-danger btn-sm" id="homelist">Kilifi</a>
+					<a href="/location/kirinyaga/"class="btn btn-danger btn-sm" id="homelist">Kirinyaga</a>
+					<a href="/location/kisumu/"class="btn btn-danger btn-sm" id="homelist">Kisumu</a>
+					<a href="/location/kitale/"class="btn btn-danger btn-sm" id="homelist">Kitale</a>
+					<a href="/location/kisii/"class="btn btn-danger btn-sm" id="homelist">Kisii</a>
+					<a href="/location/limuru/"class="btn btn-danger btn-sm" id="homelist">Limuru</a>
+					<a href="/location/lodwar/"class="btn btn-danger btn-sm" id="homelist">Lodwar</a>
+					<a href="/location/loitoktok/"class="btn btn-danger btn-sm" id="homelist">Loitoktok</a>
+					<a href="/location/machakos/"class="btn btn-danger btn-sm" id="homelist">Machakos</a>
+					<a href="/location/mai-mahiu/"class="btn btn-danger btn-sm" id="homelist">Mai Mahiu</a>
+					<a href="/location/malindi/"class="btn btn-danger btn-sm" id="homelist">Malindi</a>
+					<a href="/location/meru/"class="btn btn-danger btn-sm" id="homelist">Meru</a>
+					<a href="/location/naivasha/"class="btn btn-danger btn-sm" id="homelist">Naivasha</a>
+					<a href="/location/mombasa/"class="btn btn-danger btn-sm" id="homelist">Mombasa</a>
+					<a href="/location/nakuru/"class="btn btn-danger btn-sm" id="homelist">Nakuru</a>
+					<a href="/location/nanyuki/"class="btn btn-danger btn-sm" id="homelist">Nanyuki</a>
+					<a href="/location/nyahururu/"class="btn btn-danger btn-sm" id="homelist">Nyahururu</a>
+					<a href="/location/nyeri/"class="btn btn-danger btn-sm" id="homelist">Nyeri</a>
+					<a href="/location/thika/"class="btn btn-danger btn-sm" id="homelist">Thika</a>
+					<a href="/location/voi/"class="btn btn-danger btn-sm" id="homelist">Voi</a>
+				</div>
+				<hr>
+			</div>
+		</div>
+		{% endif %}
+</div>
+{% endblock%}
