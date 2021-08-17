@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-)z)*e#9t@-w36uenn8u6o62&=vl!1i6d^q!khgx6=6@6l9n2^i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'TheEscort.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
+        'NAME':os.path.join(BASE_DIR, 'db.mysql'),
     }
 }
 
